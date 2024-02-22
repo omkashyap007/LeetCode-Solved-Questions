@@ -31,31 +31,28 @@ class Solution:
                     levelDictionary[node] = node_level
                     queue.append((node , node_level))
 
-    def dfs(self , root , array , adj_list , levels , wordSet , answer):
+    def dfs(self , root , array , adj_list , levels  , answer):
         if levels[root] == float("inf") : 
             return 
         if levels[root] == 1 :
             answer.append(array.copy()[::-1])
             return
         for node in adj_list[root] : 
-            if levels[node]== levels[root] - 1 and node in wordSet : 
+            if levels[node]== levels[root] - 1 : 
                 array.append(node)
-                self.dfs(node , array , adj_list , levels , wordSet , answer)
+                self.dfs(node , array , adj_list , levels  , answer)
                 array.pop()
 
     def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[List[str]]:
-        wordSet = set(wordList)
-        if beginWord not in wordSet :
-            wordSet.add(beginWord)
-            wordList.append(beginWord)
-        if endWord not in wordSet :
+        if endWord not in wordList:
             return []
+        if beginWord not in wordList :
+            wordList.append(beginWord)
         adj_list = self.createAdjacencyList(wordList)
         levelDistance = {word:float("inf") for word in wordList}
         levelDistance[beginWord] = 1
         self.udpateLevelDistance(levelDistance , adj_list , beginWord ,endWord)
-        print(levelDistance)
         answer = []
-        self.dfs(endWord , [endWord] , adj_list , levelDistance , wordSet , answer)
+        self.dfs(endWord , [endWord] , adj_list , levelDistance  , answer)
         return answer
 
