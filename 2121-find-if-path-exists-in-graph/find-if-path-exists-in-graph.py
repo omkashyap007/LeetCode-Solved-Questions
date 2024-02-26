@@ -18,22 +18,16 @@ class DSU :
         parent_v = self.findParent(v)
         rank_u = self.rank[parent_u]
         rank_v = self.rank[parent_v]
-        if rank_u == rank_v : 
+        if rank_u >= rank_v : 
             self.parent[parent_v] = self.findParent(parent_u)
             self.parent[v] = self.findParent(parent_v)
-            self.rank[parent_u] += 1
-        elif rank_u > rank_v : 
-            self.parent[parent_v] = self.findParent(parent_u)
-            self.parent[v] = self.findParent(parent_v)
-            self.rank[parent_u] += 1
+            self.rank[parent_u] += self.rank[parent_v]
         else : 
             self.parent[parent_u] = self.findParent(parent_v)
             self.parent[u] = self.findParent(parent_u)
-            self.rank[parent_v] += 1
+            self.rank[parent_v] += self.rank[parent_u]
 
 class Solution:
     def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
         dsu = DSU(n , edges)
-        print(dsu.rank)
-        print(dsu.parent)
         return dsu.findParent(source) == dsu.findParent(destination)
