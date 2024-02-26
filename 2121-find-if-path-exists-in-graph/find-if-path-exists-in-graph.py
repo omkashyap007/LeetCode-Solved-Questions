@@ -34,4 +34,6 @@ class DSU :
 class Solution:
     def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
         dsu = DSU(n , edges)
+        print(dsu.rank)
+        print(dsu.parent)
         return dsu.findParent(source) == dsu.findParent(destination)
