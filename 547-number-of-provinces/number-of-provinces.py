@@ -34,5 +34,6 @@ class Solution:
                     dsu.union(i , j)
         count = 0
         for i in range(len(grid)):
-            if dsu.parent[i] == i : count +=1
+            if dsu.parent[i] == i :
+                count += 1
         return count
