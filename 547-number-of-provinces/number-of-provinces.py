@@ -31,7 +31,8 @@ class Solution:
         for i in range(len(grid)) :
             for j in range(len(grid)):
                 if grid[i][j] == 1 :
-                    dsu.union(i , j)
+                    if dsu.findParent(i) != dsu.findParent(j) :
+                        dsu.union(i , j)
         count = 0
         for i in range(len(grid)):
             if dsu.parent[i] == i :
