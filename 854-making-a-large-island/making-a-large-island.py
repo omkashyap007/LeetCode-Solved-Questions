@@ -68,6 +68,8 @@ class Solution:
                     parent = dsu.findParent(i*n+j)
                     area[parent] = the_area
                     max_area = max(max_area , the_area)
+        print(dsu.size)
+        print(area)
         for i in range(n):
             for j in range(n):
                 if grid[i][j] == 1 :
