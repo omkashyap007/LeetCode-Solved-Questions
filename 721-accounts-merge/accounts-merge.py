@@ -40,13 +40,13 @@ class Solution:
                     dsu.union(i , hash_map[mail])
                 else : 
                     hash_map[mail] = i
-        a = [[] for _ in range(n)]
+        a = [set() for _ in range(n)]
         for i in range(len(accounts)):
             for j in range(1 , len(accounts[i])) :
-                mail = a[dsu.findParent(i)].append(accounts[i][j])
+                mail = a[dsu.findParent(i)].add(accounts[i][j])
         answer = []
         for i in range(len(a)):
             if a[i] :
-                l = [accounts[i][0]] + sorted(list(set(a[i])))
+                l = [accounts[i][0]] + sorted(list((a[i])))
                 answer.append(l)
         return answer
