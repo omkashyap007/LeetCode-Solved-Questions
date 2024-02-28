@@ -1,66 +1,91 @@
-class Solution:
-    def recursiveTask(self, grid, currentId, X, Y):
-        grid[X][Y] = currentId
+class DSU :
+    def __init__(self , n):
+        self.parent = [i for i in range(n)]
+        self.size = [1 for _ in range(n)]
 
-        if X > 0 and grid[X - 1][Y] == 1:
-            self.recursiveTask(grid, currentId, X - 1, Y)
-        if X < len(grid) - 1 and grid[X + 1][Y] == 1:
-            self.recursiveTask(grid, currentId, X + 1, Y)
-        if Y > 0 and grid[X][Y - 1] == 1:
-            self.recursiveTask(grid, currentId, X, Y - 1)
-        if Y < len(grid) - 1 and grid[X][Y + 1] == 1:
-            self.recursiveTask(grid, currentId, X, Y + 1)
+    def findParent(self , u):
+        if self.parent[u] == u :
+            return u
+        parent = self.findParent(self.parent[u])
+        self.parent[u] = parent
+        return parent
+    
+    def union(self , u , v):
+        parent_u = self.findParent(u)
+        parent_v = self.findParent(v)
+        size_u = self.size[parent_u]
+        size_v  = self.size[parent_v]
+        if parent_u == parent_v :
+            return
+        if size_u < size_v :
+            self.parent[parent_u] = self.findParent(parent_v)
+            self.parent[u] = self.findParent(parent_v)
+            self.size[parent_v] += self.size[parent_u]
+        else :
+            self.parent[parent_v] = self.findParent(parent_u)
+            self.parent[v] = self.findParent(parent_u)
+            self.size[parent_u] += self.size[parent_v]
+
+
+class Solution:
+
+    def bfs(self , i , j , grid , visited , area , dsu , dirs):
+        n = len(grid)
+        visited[i][j] = True
+        area = 0
+        queue = deque([(i,j)])
+        while queue : 
+            i ,  j = queue.popleft()
+            area += 1
+            for dx , dy in dirs :
+                x = i+dx
+                y = j+dy
+                if  x>=0 and x<n and y>=0 and y<n and grid[x][y] == 1 and not visited[x][y]:
+                    visited[x][y] = True
+                    queue.append((x,y))
+        return area
 
     def largestIsland(self, grid: List[List[int]]) -> int:
-        currentId = -1
-        
+        n = len(grid)
+        dsu = DSU(n*n)
         for i in range(len(grid)):
             for j in range(len(grid)):
-                if grid[i][j] == 1:
-                    self.recursiveTask(grid, currentId, i, j)
-                    currentId -= 1
-        
-        # print(grid)
-
-        if currentId == -1:
-            return 1
-            
-        areaDict = {}
-
-        for i in range(len(grid)):
-            for j in range(len(grid)):
-                if grid[i][j] < 0:
-                    if grid[i][j] in areaDict:
-                        areaDict[grid[i][j]] += 1
-                    else:
-                        areaDict[grid[i][j]] = 1
-        
-        # print(areaDict)
-
-        maximumIsland = max(areaDict.values())
-
-        for i in range(len(grid)):
-            for j in range(len(grid)):
-                if grid[i][j] == 0:
-                    answer = 1
-                    islands = set()
-                    if i > 0 and grid[i - 1][j] < 0:
-                        islands.add(grid[i - 1][j])
-                    if i < len(grid) - 1 and grid[i + 1][j] < 0:
-                        islands.add(grid[i + 1][j])
-                    if j > 0 and grid[i][j - 1] < 0:
-                        islands.add(grid[i][j - 1])
-                    if j < len(grid) - 1 and grid[i][j + 1] < 0:
-                        islands.add(grid[i][j + 1])
-                    
-                    for island in islands:
-                        answer += areaDict[island]
-
-                    maximumIsland = max(maximumIsland, answer)
-
-
-        return maximumIsland
-
-
-
-        
+                if grid[i][j] == 1 :
+                    for dx , dy in [(-1,0),(0,-1)] :
+                        x = i+dx
+                        y = j+dy
+                        if x>=0 and x<n and y>= 0 and y<n and grid[x][y] == 1 :
+                            curr = i*n+j
+                            adj  = x*n+y
+                            dsu.union(adj , curr)
+        visited = [[False for _ in range(n)] for _ in range(n)]
+        area = [0 for _ in range(n*n)]
+        max_area = 0
+        dirs = [(-1,0) , (0,1) , (1,0) , (0,-1)]
+        for i in range(n):
+            for j in range(n):
+                if grid[i][j] == 1 and not visited[i][j]:
+                    the_area = self.bfs(i , j , grid , visited , area , dsu , dirs )
+                    parent = dsu.findParent(i*n+j)
+                    area[parent] = the_area
+                    max_area = max(max_area , the_area)
+        print(dsu.size)
+        print(area)
+        for i in range(n):
+            for j in range(n):
+                if grid[i][j] == 1 :
+                    continue
+                parents = []
+                curr_area = 0
+                for dx , dy in dirs :
+                    x = i+dx
+                    y = j+dy
+                    if not ( x>=0 and x<n and y>=0 and y<n and grid[x][y] == 1 ) :
+                        continue
+                    x_y_num = x*n+y
+                    the_parent =  dsu.findParent(x_y_num) 
+                    if the_parent not in parents :
+                        curr_area += area[dsu.findParent(x_y_num)]
+                        parents.append(the_parent)
+                max_area = max(max_area , curr_area + 1)    
+        return max_area
