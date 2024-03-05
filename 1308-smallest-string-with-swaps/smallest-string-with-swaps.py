@@ -32,11 +32,9 @@ class Solution:
         max_index = 0
         hash_set = set()
         for x ,y in pairs :
-            max_index = max(x,max_index)
-            max_index = max(y , max_index)
             hash_set.add(x)
             hash_set.add(y)
-        dsu = DSU(max_index+1)
+        dsu = DSU(len(s)+1)
         for x , y in pairs :
             dsu.union(x,y)
         hash_map = {}
