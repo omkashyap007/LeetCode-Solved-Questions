@@ -36,7 +36,16 @@ class Solution:
         answer = 0
         for t , u , v in edges :
             if t == 3 :
-                answer += alice.union(u,  v) | bob.union(u,v)
+                found = False
+                if alice.findParent(u) != alice.findParent(v):
+                    answer += 1
+                    found = True
+                    alice.union(u,v)
+                if bob.findParent(u) != bob.findParent(v):
+                    bob.union(u,v)
+                    if not found :
+                        answer += 1
+
         for t , u , v in edges:
             if t == 1 :
                 if alice.findParent(u) != alice.findParent(v):
