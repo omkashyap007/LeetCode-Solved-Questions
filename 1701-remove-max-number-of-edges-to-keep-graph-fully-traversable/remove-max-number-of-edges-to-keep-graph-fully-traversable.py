@@ -36,7 +36,7 @@ class Solution:
         answer = 0
         for t , u , v in edges :
             if t == 3 :
-                answer += alice.union(u , v) | bob.union(u , v)
+                answer += alice.union(u,  v) | bob.union(u,v)
         for t , u , v in edges:
             if t == 1 :
                 answer += alice.union(u , v)
