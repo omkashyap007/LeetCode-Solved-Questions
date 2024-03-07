@@ -39,9 +39,13 @@ class Solution:
                 answer += alice.union(u,  v) | bob.union(u,v)
         for t , u , v in edges:
             if t == 1 :
-                answer += alice.union(u , v)
+                if alice.findParent(u) != alice.findParent(v):
+                    answer += 1
+                alice.union(u , v)
             if t == 2 :
-                answer += bob.union(u , v)
+                if bob.findParent(u) != bob.findParent(v):
+                    answer += 1
+                bob.union(u , v)
         if bob.comp <= 1 and alice.comp <= 1 :
             return len(edges)-answer
         return -1
