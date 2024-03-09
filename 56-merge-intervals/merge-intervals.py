@@ -8,8 +8,8 @@ class Solution:
             curr_end = intervals[i][1]
             j = i + 1
             while j < len(intervals) and intervals[j][0] <= curr_end :
-                curr_end = max( curr_end , intervals[j][1] )
+                curr_end = max(curr_end , intervals[j][1])
                 j += 1
-            i = j
             answer.append([curr_start , curr_end])
+            i = j
         return answer
