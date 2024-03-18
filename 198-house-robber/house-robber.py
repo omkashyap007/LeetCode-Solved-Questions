@@ -1,7 +1,7 @@
 class Solution:
 
     def dfs(self , index , nums , dp) :
-        if dp[index] != -1 :
+        if dp[index] != -1 : 
             return dp[index]
         curr_step = nums[index] + self.dfs(index-2 , nums , dp)
         prev_step = self.dfs(index-1 , nums , dp)
@@ -15,4 +15,6 @@ class Solution:
         dp = [-1 for _ in range(len(nums))]
         dp[0] = nums[0]
         dp[1] = max(nums[0]  , nums[1])
-        return self.dfs(len(nums)-1 , nums , dp)
+        for i in range(2 , len(nums)):
+            dp[i] = max(dp[i-1] , dp[i-2] + nums[i])
+        return dp[len(nums)-1]
