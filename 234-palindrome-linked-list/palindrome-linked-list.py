@@ -21,7 +21,7 @@ class Solution:
         while fast and fast.next :
             slow = slow.next
             fast = fast.next.next
-        if odd_even %2 == 0 : 
+        if odd_even %2 == 0 :
             rev = self.reverseList(slow)
         else : 
             rev = self.reverseList(slow.next)
