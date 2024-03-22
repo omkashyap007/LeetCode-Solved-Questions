@@ -16,7 +16,7 @@ class Solution:
             slow = slow.next
             fast = fast.next.next
         rev = self.reverseList(slow)
-        while rev :
+        while rev and thead:
             if rev.val != thead.val :
                 return False
             rev = rev.next
