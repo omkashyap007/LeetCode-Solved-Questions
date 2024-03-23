@@ -8,6 +8,4 @@ class Solution:
             arr[k+1] = nums[j]
             i += 1
             j += 1
-        for i in range(len(nums)):
-            nums[i] = arr[i]
-        return nums
+        return arr
