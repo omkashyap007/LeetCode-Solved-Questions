@@ -1,15 +1,12 @@
 class Solution:
+
+    @cache
+    def dfs(self , i , j):
+        if i == 0 and i == 0:
+            return 1
+        up = self.dfs(i-1 , j) if i-1 >=0 else 0
+        left = self.dfs(i,j-1) if j-1>=0 else 0
+        return up+ left
+
     def uniquePaths(self, m: int, n: int) -> int:
-        dp = [0 for _ in range(n)]
-        for i in range(m):
-            prev_j = 0
-            temp = [0 for _ in range(n)]
-            for j in range(n):
-                if i == 0 and j == 0 :
-                    temp[j] = 1
-                    prev_j = 1
-                else:
-                    temp[j] = dp[j] + prev_j
-                    prev_j = temp[j]
-            dp = temp
-        return dp[-1]
+        return self.dfs(m-1,n-1)
