@@ -4,16 +4,21 @@ class Solution:
 
     def __init__(self, head: Optional[ListNode]):
         self.head = head
-        temp_head = head
-        self.arr = []
-        while temp_head :
-            self.arr.append(temp_head.val)
+        self.length = 0
+        temp_head = self.head
+        while temp_head:
+            self.length += 1
             temp_head = temp_head.next
-        
+
     def getRandom(self) -> int:
-        return random.choice(self.arr)
+        random_index = random.randint(1 ,self.length)
+        temp_head = self.head
+        curr_index = 1
+        while temp_head :
+            if curr_index == random_index :
+                return temp_head.val
+            curr_index += 1
+            temp_head = temp_head.next
 
-
-# Your Solution object will be instantiated and called as such:
-# obj = Solution(head)
-# param_1 = obj.getRandom()
+        
+        
