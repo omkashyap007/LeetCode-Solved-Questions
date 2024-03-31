@@ -12,6 +12,9 @@ class Solution:
 
     def maxSubArray(self, nums: List[int]) -> int:
         dp = [-1 for _ in range(len(nums))]
-        max_val = [float("-inf")]
-        self.dfs(len(nums)-1 , nums , dp , max_val )
-        return max_val[0]
+        dp[0] = nums[0]
+        max_value = nums[0]
+        for i in range(1 , len(nums)):
+            dp[i] = max(dp[i-1] + nums[i] , nums[i])
+            max_value = max(dp[i] , max_value)
+        return max_value
