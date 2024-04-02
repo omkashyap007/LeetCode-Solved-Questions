@@ -4,8 +4,7 @@ class Solution:
         answer = []
         heap = []
         for i in range(len(nums)) :
-            item = nums[i]
-            frequency = freq[i]
+            item , frequency = nums[i] , freq[i]
             frequency_map[item] = frequency_map.get(item,0)-frequency
             heapq.heappush(heap , (frequency_map[item] ,  item))
             while heap and frequency_map[heap[0][1]] != heap[0][0] :
