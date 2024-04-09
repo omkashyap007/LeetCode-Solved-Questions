@@ -15,6 +15,7 @@ class Solution:
         return min(take , not_take)
 
     def coinChange(self, coins: List[int], amount: int) -> int:
+        coins.sort()
         cache = {}
         value = self.dfs(len(coins)-1 , coins ,amount , cache)
         if value == float("inf") : return -1
