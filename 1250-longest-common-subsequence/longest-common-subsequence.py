@@ -13,6 +13,15 @@ class Solution:
         return value
             
 
-    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
-        cache = {}
-        return self.dfs(len(text1) - 1 , len(text2)-1 , text1 , text2 , cache)
+    def longestCommonSubsequence(self, s: str, p: str) -> int:
+        dp = [[0 for _ in range(len(p)+1)] for _ in range(len(s)+1)]
+        for i in range(len(s)) :
+            for j in range(len(p)) :
+                if s[i] == p[j] :
+                    dp[i+1][j+1] = 1 + dp[i][j]
+                else : 
+                    dp[i+1][j+1] = max(
+                        dp[i+1][j] , 
+                        dp[i][j+1]
+                    )
+        return dp[-1][-1]
