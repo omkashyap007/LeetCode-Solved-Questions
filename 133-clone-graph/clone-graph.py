@@ -20,10 +20,7 @@ class Solution:
             for neighbor in node.neighbors :
                 clone.neighbors.append(createNode(neighbor))
             return clone
-        createNode(node)
-        if not node :
-            return None
-        return hash_map[node.val]
+        return createNode(node)
         # visited = [False for _ in range()]
         # def dfs(node) :
         #     clone = hash_map[node.val] 
