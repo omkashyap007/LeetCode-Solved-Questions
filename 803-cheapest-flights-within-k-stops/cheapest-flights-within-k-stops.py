@@ -12,7 +12,7 @@ class Solution:
             if root == destination :
                 min_cost = min(min_cost , cost)
                 continue
-            if stops > k : 
+            if stops > k :
                 continue
             for node , node_cost in adj_list[root] :
                 new_cost = cost + node_cost
