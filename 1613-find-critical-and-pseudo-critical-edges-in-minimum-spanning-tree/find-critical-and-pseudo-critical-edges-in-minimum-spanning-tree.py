@@ -41,7 +41,6 @@ class Solution:
                 continue
             u , v , weight , _ = edges[i]
             mst_weight += weight if dsu.union(u,v) else 0
-        print(dsu.components)
         if dsu.components == 1 :
             return mst_weight
         return -1
