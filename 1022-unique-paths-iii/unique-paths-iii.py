@@ -2,13 +2,13 @@ class Solution:
 
     def dfs(self , i , j , grid , squares , required_squares , count) :
         if not (0<= i < len(grid) and 0 <= j < len(grid[0]) ) or grid[i][j] == "*" :
-            return
+            return 0
         if grid[i][j] == -1 :
-            return 
+            return 0
         if grid[i][j] == 2 :
             if squares + 1 == required_squares :
-                count[0] += 1
-            return
+                return 1
+            return 0
         cell_value = grid[i][j]
         grid[i][j] = "*"
         top = self.dfs(i-1 , j , grid , squares  + 1, required_squares , count)
@@ -16,6 +16,7 @@ class Solution:
         down = self.dfs(i+1 , j , grid , squares  + 1, required_squares , count)
         right = self.dfs(i , j+1 , grid , squares  + 1, required_squares , count)
         grid[i][j] = cell_value
+        return top+left+down+right
 
     def uniquePathsIII(self, grid: List[List[int]]) -> int:
         x = y = None
@@ -28,10 +29,10 @@ class Solution:
                     x = i
                     y = j
         count = [0]
-        self.dfs(
+        return self.dfs(
             x , y , grid , 0 , required_squares , count
         )
-        return count[0]
+        # return count[0]
 
 
 """
