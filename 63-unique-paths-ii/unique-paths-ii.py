@@ -19,23 +19,19 @@ class Solution:
     def uniquePathsWithObstacles(self, grid : List[List[int]]) -> int:
         if grid[0][0] == 1 : 
             return 0
-        dp = [
-            [0 for _ in range(len(grid[0]))] for _ in range(len(grid))
-        ]
-        dp[0][0] = 1
+        dp = [0 for _ in range(len(grid[0]))]
         for i in range(len(grid)):
+            temp = [0 for _ in range(len(grid[0]))]
+            prev_j = 0
             for j in range(len(grid[0])) :
                 if i == 0 and j == 0 :
-                    continue
+                    temp[j] = 1
+                    prev_j = 1
                 if grid[i][j] == 1 :
-                    dp[i][j] = 0
+                    temp[j] = 0
+                    prev_j = 0
                 else :
-                    top = 0
-                    left = 0
-                    if i-1>=0 :
-                        top = dp[i-1][j]
-                    if j-1>=0 :
-                        left = dp[i][j-1]
-                    dp[i][j] = top+left
-        print(dp)
-        return dp[-1][-1]
+                    temp[j] = prev_j + dp[j]
+                    prev_j = temp[j]
+            dp = temp
+        return dp[-1]
