@@ -1,16 +1,15 @@
 class Solution:
     def sumOfLeftLeaves(self, root: Optional[TreeNode]) -> int:
-        the_sum = 0
-        queue = [root]
-        while queue : 
-            temp_queue = []
-            for node in queue : 
-                if node.left :
-                    if not node.left.left and not node.left.right :
-                        the_sum += node.left.val
-                    else :
-                        temp_queue.append(node.left)
-                if node.right : 
-                    temp_queue.append(node.right)
-            queue = temp_queue
-        return the_sum        
+        def dfs(root , the_sum) :
+            if not root :
+                return
+            if root.left :
+                if not root.left.left and not root.left.right :
+                    the_sum[0] += root.left.val
+                else :
+                    dfs(root.left , the_sum)
+            if root.right :
+                dfs(root.right , the_sum)
+        the_sum = [0]
+        dfs(root ,the_sum)
+        return the_sum[0]
