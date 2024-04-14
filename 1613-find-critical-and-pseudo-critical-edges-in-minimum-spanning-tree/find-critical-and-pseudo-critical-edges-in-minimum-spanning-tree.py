@@ -52,13 +52,11 @@ class Solution:
             edges[i].append(i)
         edges.sort(key = lambda x : x[2])
         mst = self.findMST(edges , -1 , -1 , n)
-        print(f"MST of tree : {mst}")
         critical = []
         pseudo_critical = []
         for i in range(len(edges)):
             skip = self.findMST(edges , i , -1 , n)
             add = self.findMST(edges , -1 , i , n)
-            print(f"The skip , add : {skip} , {add}")
             if skip > mst or skip == -1: 
                 critical.append(edges[i][3])
             elif add == mst :
