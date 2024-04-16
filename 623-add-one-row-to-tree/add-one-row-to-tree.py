@@ -18,9 +18,6 @@ class Solution:
             self.dfs(root.right , height+1 , val , depth)
 
     def addOneRow(self, root: Optional[TreeNode], val: int, depth: int) -> Optional[TreeNode]:
-        if depth == 1:
-            node = TreeNode(val)
-            node.left = root
-            return node
+        if depth == 1:return TreeNode(val , left  = root)
         self.dfs(root , 1 , val , depth)
         return root
