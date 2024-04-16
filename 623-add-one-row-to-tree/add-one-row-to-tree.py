@@ -3,13 +3,9 @@ class Solution:
     def dfs(self , root , height , val , depth) :
         if not root  : return 
         if height + 1 == depth :
-            node = TreeNode(val)
-            l = root.left
+            node = TreeNode(val , left =  root.left)
             root.left = node
-            node.left = l
-            node = TreeNode(val)
-            r = root.right
-            node.right = r
+            node = TreeNode(val , right = root.right)
             root.right = node
             return
 
