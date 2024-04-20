@@ -18,13 +18,22 @@ class Solution:
         self.dfs(i+1 , j , grid , visited ,group)
         self.dfs(i , j+1 , grid , visited ,group)
 
-    # def bfs(self ,  i, j , grid ,  visited) :
-    #     group = [i , j , i , j]
-    #     visited[i][j] = True
-    #     queue = deque([(i,j)])
-    #     while queue : 
-    #         i , j = queue.popleft()
-    #         for
+    def bfs(self ,  i, j , grid ,  visited) :
+        group = [i , j , i , j]
+        visited[i][j] = True
+        queue = deque([(i,j)])
+        dirs = [(0,1) , (1,0)]
+        while queue : 
+            i , j = queue.popleft()
+            for dx , dy in dirs :
+                x , y = i+dx , j+dy
+                if 0 <= x < len(grid) and 0 <= y < len(grid[0]) and grid[x][y] == 1 and not visited[x][y] :
+                    visited[x][y] = True
+                    queue.append((x,y))
+                    group[2] = max(group[2] , x)
+                    group[3] = max(group[3] , y)
+        return group
+        
 
     def findFarmland(self, grid : List[List[int]]) -> List[List[int]]:
         answer = []
@@ -32,8 +41,8 @@ class Solution:
         for i in range(len(grid)):
             for j in range(len(grid[0])):
                 if grid[i][j] == 1 and not visited[i][j] :
-                    group = [i , j , i , j]
-                    self.dfs(i , j, grid , visited , group)
-                    # answer.append(self.bfs(i , j, grid , visited))
-                    answer.append(group)
+                    # group = [i , j , i , j]
+                    # self.dfs(i , j, grid , visited , group)
+                    answer.append(self.bfs(i , j, grid , visited))
+                    # answer.append(group)
         return answer
