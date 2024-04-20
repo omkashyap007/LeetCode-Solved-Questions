@@ -16,10 +16,15 @@ class Solution:
         group[2] = max(group[2] , i)
         group[3] = max(group[3] , j)
         self.dfs(i+1 , j , grid , visited ,group)
-        self.dfs(i-1 , j , grid , visited ,group)
-        self.dfs(i , j-1 , grid , visited ,group)
         self.dfs(i , j+1 , grid , visited ,group)
 
+    # def bfs(self ,  i, j , grid ,  visited) :
+    #     group = [i , j , i , j]
+    #     visited[i][j] = True
+    #     queue = deque([(i,j)])
+    #     while queue : 
+    #         i , j = queue.popleft()
+    #         for
 
     def findFarmland(self, grid : List[List[int]]) -> List[List[int]]:
         answer = []
@@ -29,5 +34,6 @@ class Solution:
                 if grid[i][j] == 1 and not visited[i][j] :
                     group = [i , j , i , j]
                     self.dfs(i , j, grid , visited , group)
+                    # answer.append(self.bfs(i , j, grid , visited))
                     answer.append(group)
         return answer
