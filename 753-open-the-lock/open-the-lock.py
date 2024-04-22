@@ -22,11 +22,11 @@ class Solution:
                     char = root[i]
                     add = root.copy()
                     add[i] = "0" if char == "9" else str(int(char)+1)
-                    if self.string(add) not in deadends :
-                        queue.append(add)
+                    # if self.string(add) not in deadends :
+                    queue.append(add)
                     sub = root.copy()
                     sub[i] = "9" if char == "0" else str(int(char)-1)
-                    if self.string(sub) not in deadends :
-                        queue.append(sub)
+                    # if self.string(sub) not in deadends :
+                    queue.append(sub)
             level += 1
         return -1
