@@ -13,11 +13,12 @@ class Solution:
         while queue :
             for _ in range(len(queue)) :
                 root = queue.popleft()
-                if self.string(root) == target : 
+                s = self.string(root)
+                if s == target : 
                     return level
-                if self.string(root) in deadends :
+                if s in deadends :
                     continue
-                deadends.add(self.string(root))
+                deadends.add(s)
                 for i in range(4) :
                     char = root[i]
                     add = root.copy()
