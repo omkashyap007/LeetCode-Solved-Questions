@@ -21,10 +21,7 @@ class Solution:
 
 
     def findRotateSteps(self, ring: str, key: str) -> int:
-        if ring[0] == key[0] : 
-            return 1+self.dfs(0 , 0 , 0 , -1 , key , ring )
-        else :
-            return 1+min(
-                self.dfs(0 , 0 , 0 , -1 , key , ring ) ,
-                self.dfs(0 , 0 , 0 , 1 , key , ring )
-            )
+        return 1+min(
+            self.dfs(0 , 0 , 0 , -1 , key , ring ) ,
+            self.dfs(0 , 0 , 0 , 1 , key , ring )
+        )
