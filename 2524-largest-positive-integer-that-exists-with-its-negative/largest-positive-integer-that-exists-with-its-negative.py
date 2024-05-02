@@ -5,10 +5,10 @@ class Solution:
             value = nums[i]
             if value > 0 : 
                 return -1
-            j = i+1
-            while j < len(nums):
+            j = len(nums)-1
+            while j > i:
                 if nums[j] > 0 :
                     if abs(nums[j]) == abs(nums[i]) : 
                         return abs(nums[j])
-                j += 1
+                j -= 1
         return -1
