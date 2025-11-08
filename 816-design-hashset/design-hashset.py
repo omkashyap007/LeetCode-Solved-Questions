@@ -1,18 +1,42 @@
+class ListNode:
+    
+    def  __init__(self, key, next=None):
+        self.key = key
+        self.next = next
+
 class MyHashSet:
 
     def __init__(self):
-        self.array = [-1 for _ in range(10**6 + 1)]
+        self.hash_key = 10**4
+        self.hash_set = [ListNode(0) for _ in range(self.hash_key)]
 
     def add(self, key: int) -> None:
-        self.array[key] = 1
+        hash_index = key % self.hash_key
+        node = self.hash_set[hash_index]
+        while node.next:
+            if node.next.key == key:
+                return True
+            node = node.next
+        node.next = ListNode(key)
 
     def remove(self, key: int) -> None:
-        self.array[key] = -1
+        hash_index = key % self.hash_key
+        node = self.hash_set[hash_index]
+        while node.next:
+            if node.next.key == key:
+                node.next = node.next.next
+                return True
+            node = node.next
+
 
     def contains(self, key: int) -> bool:
-        if self.array[key] == -1:
-            return False
-        return True
+        hash_index = key % self.hash_key
+        node = self.hash_set[hash_index]
+        while node.next:
+            if node.next.key == key:
+                return True
+            node = node.next
+        return False
 
 
 # Your MyHashSet object will be instantiated and called as such:
