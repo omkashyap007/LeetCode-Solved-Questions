@@ -1,27 +1,25 @@
 class Solution:
 
-    def dfs(self , i , j , s , p , cache):
-        if i < 0 or j < 0 :
+    def getMaxLength(self, i, j, text1, text2):
+        if i >= len(text1) or j >= len(text2):
             return 0
-        if (i,j) in cache :
-            return cache[(i,j)]
-        if s[i] == p[j] :
-            value =  1 + self.dfs(i-1 , j-1 , s , p , cache)
-        else : 
-            value = max(self.dfs(i-1 , j , s , p , cache) , self.dfs(i, j-1 , s , p , cache))
-            cache[(i,j)] = value
-        return value
-            
+        elif text1[i] == text2[j]:
+            return 1 + self.getMaxLength(i+1, j+1, text1, text2)
+        else:
+            return max(
+                self.getMaxLength(i, j+1, text1, text2),
+                self.getMaxLength(i+1, j, text1,  text2)
+            )
 
-    def longestCommonSubsequence(self, s: str, p: str) -> int:
-        dp = [[0 for _ in range(len(p)+1)] for _ in range(len(s)+1)]
-        for i in range(len(s)) :
-            for j in range(len(p)) :
-                if s[i] == p[j] :
-                    dp[i+1][j+1] = 1 + dp[i][j]
-                else : 
-                    dp[i+1][j+1] = max(
-                        dp[i+1][j] , 
-                        dp[i][j+1]
-                    )
-        return dp[-1][-1]
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        grid = [[0 for _ in range(len(text2))] for _ in range(len(text1))]
+        for i in range(len(text1)):
+            for j in range(len(text2)):
+                if text1[i] == text2[j]:
+                    top = grid[i-1][j-1] if i-1 >= 0 and j-1 >= 0 else 0
+                    grid[i][j] = 1 + top
+                else:
+                    top = grid[i-1][j] if i-1 >= 0 else 0
+                    left = grid[i][j-1] if j-1 >= 0 else 0
+                    grid[i][j] = max(top, left)
+        return grid[len(text1)-1][len(text2)-1]
