@@ -1,14 +1,28 @@
 class Solution:
-    def numberOfWays(self, corridor: str) -> int:
+    def numberOfWays(self, c: str) -> int:
         count = 1
         MOD = 10**9 + 7
+        old_i = 0
+        s = 0
         _count = 0
-        indices = [i for i in range(len(corridor)) if corridor[i] == "S"]
-        if len(indices)%2 == 1 or len(indices) < 2:
+        if len(c) < 2:
             return 0
-        if len(indices) == 2:
-            return 1
-        for i in range(2, len(indices), 2):
-            count *= (indices[i]- indices[i-1])
-            count %= MOD
-        return count%MOD
+        for i in c:
+            if i == "S":
+                _count += 1
+        if _count %2 == 1:
+            return 0
+        for i in range(len(c)):
+            if c[i] == "P":
+                continue
+            if c[i] == "S":
+                s += 1
+            if s == 2:
+                old_i = i
+            if  s == 3:
+                count *= (i-old_i)
+                count %= MOD
+                s = 1
+        return count %MOD if s != 0 else 0
+
+
