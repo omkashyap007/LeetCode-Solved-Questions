@@ -3,13 +3,8 @@ class Solution:
         count = 1
         MOD = 10**9 + 7
         _count = 0
-        for i in corridor:
-            if i == "S":
-                _count += 1
-        if _count%2 == 1:
-            return 0
         indices = [i for i in range(len(corridor)) if corridor[i] == "S"]
-        if len(indices) < 2:
+        if len(indices)%2 == 1 or len(indices) < 2:
             return 0
         if len(indices) == 2:
             return 1
