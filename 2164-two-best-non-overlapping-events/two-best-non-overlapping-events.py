@@ -27,7 +27,6 @@ class Solution:
         cache[index][count] = answer
         return answer
 
-
     def maxTwoEvents(self, events: List[List[int]]) -> int:
         events.sort(key=lambda x: x[0])
         cache = [[-1, -1] for _ in range(len(events))]
