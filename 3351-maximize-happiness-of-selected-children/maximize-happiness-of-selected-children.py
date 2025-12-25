@@ -4,9 +4,7 @@ class Solution:
         h.sort(reverse=True)
         _sum = 0
         for i in range(k):
-            val = h[i]
-            val -= x
-            if val > 0:
-                _sum += val
+            val = h[i] - x
+            _sum += val if val > 0 else 0 
             x += 1
         return _sum
