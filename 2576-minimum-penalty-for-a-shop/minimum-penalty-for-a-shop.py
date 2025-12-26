@@ -2,11 +2,6 @@ class Solution:
     def bestClosingTime(self, customers: str) -> int:
         n_count = 0
         y_count = sum([i == "Y" for i in customers])
-        # for i in range(len(customers)-1, -1, -1):
-        #     e = customers[i]
-        #     val = y_count + (e == "Y")
-        #     suffix[i] = val
-        #     y_count += e == "Y"
         answer = float("inf")
         index = None
         for i in range(len(customers)):
