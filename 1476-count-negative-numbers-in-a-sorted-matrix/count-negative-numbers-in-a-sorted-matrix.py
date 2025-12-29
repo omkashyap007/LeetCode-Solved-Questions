@@ -10,6 +10,6 @@ class Solution:
                     j -= 1
                 else:
                     break
-            count += (COLS -(j + 1))
+            count += (COLS - (j + 1))
             i += 1
         return count
