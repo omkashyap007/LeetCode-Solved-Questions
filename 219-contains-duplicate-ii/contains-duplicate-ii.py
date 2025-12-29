@@ -1,17 +1,15 @@
 class Solution:
     def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
         i = j = 0
-        hash_map = {}
+        hash_set = set()
         while j < len(nums):
             while (j-i) > k:
                 num = nums[i]
-                hash_map[num] -= 1
-                if hash_map[num] == 0:
-                    del hash_map[num]
+                hash_set.remove(num)
                 i += 1
             new_num = nums[j]
-            if new_num in hash_map:
+            if new_num in hash_set:
                 return True
-            hash_map[new_num] = 1
+            hash_set.add(new_num)
             j += 1
         return False
