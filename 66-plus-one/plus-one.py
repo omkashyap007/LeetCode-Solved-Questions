@@ -5,9 +5,7 @@ class Solution:
             digits[i] = 0
             i -= 1
         if i == -1:
-            digits = digits[::-1]
-            digits.append(1)
-            digits = digits[::-1]
+            digits.insert(0, 1)
         else:
             digits[i] += 1
         return digits
