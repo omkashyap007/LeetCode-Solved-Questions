@@ -21,7 +21,6 @@ class Solution:
         
         not_take = self.findProduct(i-1, j, a, b, cache)
         not_take_both = self.findProduct(i, j-1, a, b, cache)
-        print(i, j, take, not_take, not_take_both)
         max_value = max(take, not_take, not_take_both)
         cache[(i,j)] = max_value
         return max_value
