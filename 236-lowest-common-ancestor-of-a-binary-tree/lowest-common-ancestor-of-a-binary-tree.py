@@ -1,15 +1,22 @@
 class Solution:
-    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        if not root : 
+
+    def dfs(self, root, p, q):
+        if not root:
             return None
-        if root == p or root == q :
+        
+        if root.val == p.val or root.val == q.val:
             return root
-        left = self.lowestCommonAncestor(root.left , p , q)
-        right = self.lowestCommonAncestor(root.right , p , q)
-        if not left :
-            return right
-        if not right :
+        
+        left = self.dfs(root.left, p, q)
+        right = self.dfs(root.right, p, q)
+
+        if left and right:
+            return root
+        if left:
             return left
-        if left and right :
-            return root
-            
+        if right:
+            return right
+        return None
+
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        return self.dfs(root, p, q)
