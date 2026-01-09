@@ -15,5 +15,5 @@ class Solution:
             return right_node, 1 + right_height
 
     def subtreeWithAllDeepest(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        deepest_node, height = self.dfs(root)
+        deepest_node, _ = self.dfs(root)
         return deepest_node
