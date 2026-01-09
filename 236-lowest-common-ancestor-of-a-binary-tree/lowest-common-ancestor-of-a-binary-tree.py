@@ -12,11 +12,7 @@ class Solution:
 
         if left and right:
             return root
-        if left:
-            return left
-        if right:
-            return right
-        return None
+        return left or right
 
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         return self.dfs(root, p, q)
