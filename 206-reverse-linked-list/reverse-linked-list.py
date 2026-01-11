@@ -1,16 +1,17 @@
 class Solution:
+    def f(self, n, t):
+        if n.next:
+            l = self.f(n.next, t)
+            l.next = n
+            n.next = None
+        else:
+            t.next = n
+        return n
+
+
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        t = None
         if not head:
             return head
-        def f(n):
-            nonlocal t
-            if n.next:
-                l = f(n.next)
-                l.next = n
-                n.next = None
-            else:
-                t = n
-            return n
-        f(head)
-        return t
+        t = ListNode()
+        self.f(head, t)
+        return t.next
