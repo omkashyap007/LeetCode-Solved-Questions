@@ -9,21 +9,7 @@ class Solution:
         )
         return _sum
 
-    def binarySearch(self, i, j, k, prefix, t):
-        answer = 0
-        low = 0
-        high = k
-        while low <= high:
-            mid = low + (high-low)//2
-            _sum = self.getSum(i+mid, j+mid, i, j, prefix)
-            if _sum <= t:
-                answer = mid + 1
-                low = mid + 1
-            else:
-                high = mid - 1
-        return answer
-
-    def maxSideLength(self, mat: List[List[int]], threshold: int) -> int:
+    def maxSideLength(self, mat: List[List[int]], t: int) -> int:
         answer = 0
         ROWS, COLS = len(mat), len(mat[0])
         prefix = [[0 for _ in range(COLS)] for _ in range(ROWS)]
@@ -37,7 +23,12 @@ class Solution:
 
         for i in range(ROWS):
             for j in range(COLS):
-                k = min(ROWS-i, COLS-j) - 1
-                _answer = self.binarySearch(i, j, k, prefix, threshold)
-                answer = max(answer, _answer)
+                k = min(ROWS-i, COLS-j)
+                for offset in range(answer, k):
+                    x, y = i+offset, j+offset
+                    grid_sum = self.getSum(x, y, i, j, prefix)
+                    if grid_sum <= t:
+                        answer = max(answer, offset+1)
+                    else:
+                        break
         return answer
